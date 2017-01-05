@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Tgj-uc-LDM">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Player SelectionVC-->
+        <scene sceneID="JGQ-Wc-4tY">
+            <objects>
+                <viewController id="nEh-dc-cCP" customClass="PlayerSelectionVC" customModule="Tic_Tac_Toe" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9Xu-9v-HMb"/>
+                        <viewControllerLayoutGuide type="bottom" id="LDC-uj-F6J"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pTd-9b-TSX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kMd-0F-hdI">
+                                <rect key="frame" x="148" y="397" width="78" height="30"/>
+                                <state key="normal" title="Two Player"/>
+                                <connections>
+                                    <action selector="twoPlayer:" destination="nEh-dc-cCP" eventType="touchUpInside" id="b67-2S-sc1"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nXV-YB-NgQ">
+                                <rect key="frame" x="59" y="113" width="258" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Qt-fw-mut">
+                                <rect key="frame" x="164" y="190" width="46" height="30"/>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="setUserNameForGame:" destination="nEh-dc-cCP" eventType="touchUpInside" id="DQO-c8-KCe"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Roj-oc-Xbv">
+                                <rect key="frame" x="148" y="319" width="78" height="30"/>
+                                <state key="normal" title="One Player"/>
+                                <connections>
+                                    <action selector="onePlayer:" destination="nEh-dc-cCP" eventType="touchUpInside" id="Kbj-Ot-RAX"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pY4-69-wRY">
+                                <rect key="frame" x="129" y="508" width="118" height="30"/>
+                                <state key="normal" title="Facbook Login"/>
+                                <connections>
+                                    <action selector="facebookLogin:" destination="nEh-dc-cCP" eventType="touchUpInside" id="GFb-89-cu0"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="GRu-cK-cK9"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="userNameTxtField" destination="nXV-YB-NgQ" id="VtH-k5-EbY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gg5-2L-6aw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1321.5" y="414.5"/>
+        </scene>
+        <!--Game-->
+        <scene sceneID="eI7-9c-CSf">
+            <objects>
+                <viewController storyboardIdentifier="gameView" id="kns-UB-2X2" customClass="Game" customModule="Tic_Tac_Toe" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Dvq-b1-0yU"/>
+                        <viewControllerLayoutGuide type="bottom" id="kzx-WC-QMN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Mle-5v-2rH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mgh-fb-PHJ">
+                                <rect key="frame" x="20" y="156" width="335" height="374"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="board.png" translatesAutoresizingMaskIntoConstraints="NO" id="0OT-Yv-lXr">
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="366"/>
+                                    </imageView>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zwg-ro-Vmc">
+                                        <rect key="frame" x="0.0" y="8" width="103" height="105"/>
+                                        <connections>
+                                            <action selector="userPressed:" destination="kns-UB-2X2" eventType="touchUpInside" id="LCT-hp-LGB"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="7" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tAn-8U-4kl">
+                                        <rect key="frame" x="8" y="255" width="95" height="103"/>
+                                        <connections>
+                                            <action selector="userPressed:" destination="kns-UB-2X2" eventType="touchUpInside" id="aT1-5Q-aZ4"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i8x-uk-RVY">
+                                        <rect key="frame" x="121" y="8" width="93" height="105"/>
+                                        <connections>
+                                            <action selector="userPressed:" destination="kns-UB-2X2" eventType="touchUpInside" id="0Ii-tA-2EY"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o6H-nX-0GS">
+                                        <rect key="frame" x="236" y="8" width="99" height="105"/>
+                                        <connections>
+                                            <action selector="userPressed:" destination="kns-UB-2X2" eventType="touchUpInside" id="1Wy-H2-9r2"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Sd-hS-K3B">
+                                        <rect key="frame" x="8" y="134" width="95" height="103"/>
+                                        <connections>
+                                            <action selector="userPressed:" destination="kns-UB-2X2" eventType="touchUpInside" id="cOV-9k-aj9"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6fi-Ps-1aU">
+                                        <rect key="frame" x="121" y="134" width="93" height="102"/>
+                                        <connections>
+                                            <action selector="userPressed:" destination="kns-UB-2X2" eventType="touchUpInside" id="a0x-SG-faZ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="9" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xwb-Ca-InW">
+                                        <rect key="frame" x="236" y="255" width="91" height="103"/>
+                                        <connections>
+                                            <action selector="userPressed:" destination="kns-UB-2X2" eventType="touchUpInside" id="2O6-wH-aIC"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="6" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b78-Hv-7fj">
+                                        <rect key="frame" x="236" y="134" width="91" height="102"/>
+                                        <connections>
+                                            <action selector="userPressed:" destination="kns-UB-2X2" eventType="touchUpInside" id="Z2l-Zf-vmG"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="8" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sHN-tG-DVy">
+                                        <rect key="frame" x="121" y="255" width="93" height="103"/>
+                                        <connections>
+                                            <action selector="userPressed:" destination="kns-UB-2X2" eventType="touchUpInside" id="2XQ-nr-lDu"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rXl-4S-4Nx">
+                                <rect key="frame" x="122" y="63" width="131" height="59"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button hidden="YES" opaque="NO" tag="11" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xlI-TX-FJ0">
+                                <rect key="frame" x="85" y="583" width="204" height="52"/>
+                                <state key="normal" title="Reset"/>
+                                <connections>
+                                    <action selector="ResetGame:" destination="kns-UB-2X2" eventType="touchUpInside" id="DXc-6h-ax2"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="8YX-aA-bDH"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="gameView" destination="Mgh-fb-PHJ" id="5tJ-gm-bFq"/>
+                        <outlet property="resultLabel" destination="rXl-4S-4Nx" id="d9Z-BV-uF9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EER-Bm-O8M" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1829.5" y="414.5"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="RFU-yO-hwy">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Tgj-uc-LDM" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VS3-FJ-o0D">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="nEh-dc-cCP" kind="relationship" relationship="rootViewController" id="Xxu-XV-Uyn"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w4L-vM-Ynn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="509" y="414"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="board.png" width="360" height="360"/>
+    </resources>
+</document>
