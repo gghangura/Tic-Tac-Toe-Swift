@@ -9,6 +9,7 @@
 import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
+import FacebookLogin
 
 class PlayerSelectionVC: UIViewController, UIActionSheetDelegate {
     @IBOutlet weak var userNameTxtField: UITextField!
@@ -50,25 +51,31 @@ class PlayerSelectionVC: UIViewController, UIActionSheetDelegate {
     }
     
     func facebook() -> Void {
-        
+        let loginManager = FBSDKLoginManager();
+        loginManager.logOut()
         if FBSDKAccessToken.current() != nil {
             let req = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email,name"], tokenString: FBSDKAccessToken.current().tokenString, version: nil, httpMethod: "GET")
-//            req.start(completionHandler: { (connection, result, error : NSError!) -> Void in
-//                if(error == nil)
-//                {
-//                    BaseObject.sharedInstance.userData = result as! NSMutableDictionary
-//                    let finishedUrl = BaseObject.sharedInstance.url.replacingOccurrences(of: "userID", with: "\(BaseObject.sharedInstance.userData.value(forKey: "id")!)")
-//                    let data = try? Data(contentsOf: URL(string: finishedUrl)!)
-//                    BaseObject.sharedInstance.image = UIImage(data: data!)
-//                    self.pushViewController()
-//                }
-//                else
-//                {
-//                    print("error \(error)")
-//                }
-//            })
+            //            req?.start(completionHandler: {
+            //                handle in
+            //
+            //            })
+            //            req.star
+            req?.start(completionHandler: { FBSD in
+                if(FBSD.2 == nil)
+                {
+                    BaseObject.sharedInstance.userData = FBSD.1 as! NSDictionary
+                    let finishedUrl = BaseObject.sharedInstance.url.replacingOccurrences(of: "userID", with: "\(BaseObject.sharedInstance.userData.value(forKey: "id")!)")
+                    let data = try? Data(contentsOf: URL(string: finishedUrl)!)
+                    BaseObject.sharedInstance.image = UIImage(data: data!)
+                    self.pushViewController()
+                }
+                else
+                {
+                    print("error \(FBSD.2)")
+                }
+            })
         } else {
-            let loginManager = FBSDKLoginManager();
+            
             let isInstalled = UIApplication.shared.canOpenURL(URL(string: "fb://")!)
             if (isInstalled) {
                 loginManager.loginBehavior = FBSDKLoginBehavior.native
@@ -78,27 +85,38 @@ class PlayerSelectionVC: UIViewController, UIActionSheetDelegate {
             
             //        print(FBSDKAccessToken.currentAccessToken())
             //        loginManager.logOut()
-//            FBSDKLoginManager().logIn(withReadPermissions: ["public_profile"],from:self ,handler: { (result:FBSDKLoginManagerLoginResult!, error:NSError!) -> Void in
-//                if error != nil {
-//                    print("error")
-//                }else if(result.isCancelled){
-//                    print("result cancelled")
-//                }else{
-//                    let fbRequest = FBSDKGraphRequest(graphPath:"me", parameters: nil);
-//                    fbRequest.start { (connection : FBSDKGraphRequestConnection!, result : AnyObject!, error : NSError!) -> Void in
-//                        
-//                        if error == nil {
-//                            BaseObject.sharedInstance.userData = result as! NSMutableDictionary
-//                            let finishedUrl = BaseObject.sharedInstance.url.replacingOccurrences(of: "userID", with: "\(BaseObject.sharedInstance.userData.value(forKey: "id")!)")
-//                            let data = try? Data(contentsOf: URL(string: finishedUrl)!)
-//                            BaseObject.sharedInstance.image = UIImage(data: data!)
-//                            self.pushViewController()
-//                        } else {
-//                            
-//                        }
-//                    }
-//                }
-//            })
+            
+            FBSDKLoginManager.init().logIn(withReadPermissions: ["public_profile"], from: self, handler: {
+                req in
+                
+                if req.1 != nil {
+                    print("error")
+                }else if(req.0?.isCancelled)!{
+                    print("result cancelled")
+                }else{
+                    let fbRequest = FBSDKGraphRequest(graphPath:"me", parameters: nil);
+                    
+                    fbRequest?.start(completionHandler: {
+                        req in
+                        if req.2 == nil {
+                            BaseObject.sharedInstance.userData = req.1 as! NSDictionary
+                            let finishedUrl = BaseObject.sharedInstance.url.replacingOccurrences(of: "userID", with: "\(BaseObject.sharedInstance.userData.value(forKey: "id")!)")
+                            let data = try? Data(contentsOf: URL(string: finishedUrl)!)
+                            BaseObject.sharedInstance.image = UIImage(data: data!)
+                            self.pushViewController()
+                        } else {
+                            
+                        }
+                    })
+                    
+                    //                    fbRequest?.start { (connection : FBSDKGraphRequestConnection!, result : AnyObject!, error : NSError!) -> Void in
+                    //
+                    
+                    //                    }
+                }
+                
+            })
+            
         }
     }
     
@@ -107,7 +125,7 @@ class PlayerSelectionVC: UIViewController, UIActionSheetDelegate {
             let alert = UIAlertController.init(title: "Error", message: "Please enter your username", preferredStyle: .alert)
             let ok = UIAlertAction.init(title: "OK", style: .cancel, handler: { (alert : UIAlertAction) in
                 
-                }
+            }
             )
             alert.addAction(ok)
             

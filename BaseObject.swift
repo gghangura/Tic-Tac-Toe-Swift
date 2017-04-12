@@ -21,7 +21,7 @@ class BaseObject: NSObject {
     var isCircle : Bool!
     var isComputerPlaying : Bool!
     var userName : String!
-    var userData : NSMutableDictionary!
+    var userData : NSDictionary!
     var isDumb : Bool!
     
     
