@@ -53,20 +53,20 @@ class Game: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    @IBAction func userPressed(sender: UIButton) {
+    @IBAction func userPressed(_ sender: UIButton) {
         if !disabled {
             switchImage(sender)
         }
     }
     
-    func switchImage(button:UIButton) -> Void {
+    func switchImage(_ button:UIButton) -> Void {
         if (userSteps[button.tag - 1] == 0) {
             if (now == 1) {
-                button.setBackgroundImage(circleImage, forState: UIControlState.Normal)
+                button.setBackgroundImage(circleImage, for: UIControlState())
                 userSteps[button.tag - 1] = 1;
                 now = 2
             } else {
-                button.setBackgroundImage(crossImage, forState: UIControlState.Normal)
+                button.setBackgroundImage(crossImage, for: UIControlState())
                 userSteps[button.tag - 1] = 2;
                 now = 1
             }
@@ -76,9 +76,9 @@ class Game: UIViewController {
                 if ((BaseObject.sharedInstance.isComputerPlaying) == true) {
                     disabled = true
                     if (BaseObject.sharedInstance.isDumb == true) {
-                        self.performSelector(#selector(Game.ComputersTurnDumb), withObject: nil, afterDelay: 2.0)
+                        self.perform(#selector(Game.ComputersTurnDumb), with: nil, afterDelay: 2.0)
                     } else{
-                        self.performSelector(#selector(Game.ComputersTurnSmart), withObject: nil, afterDelay: 2.0)
+                        self.perform(#selector(Game.ComputersTurnSmart), with: nil, afterDelay: 2.0)
                     }
                 }
             }
@@ -145,11 +145,11 @@ class Game: UIViewController {
             
                 let button = gameView.viewWithTag(randomNumber+1) as! UIButton
                 if (now == 1) {
-                    button.setBackgroundImage(circleImage, forState: UIControlState.Normal)
+                    button.setBackgroundImage(circleImage, for: UIControlState())
                     userSteps[randomNumber] = 1;
                     now = 2
                 } else {
-                    button.setBackgroundImage(crossImage, forState: UIControlState.Normal)
+                    button.setBackgroundImage(crossImage, for: UIControlState())
                     userSteps[randomNumber] = 2;
                     now = 1
                 }
@@ -166,7 +166,7 @@ class Game: UIViewController {
             var count = 0
             var number = 0
             var o = 0
-            for (o = 0 ;o < winnigArray.count;o += 1) {
+            for o in 0..<winnigArray.count {
                 let internalArray = winnigArray[o]
                 let zero = internalArray[0];
                 let first = internalArray[1];
@@ -175,24 +175,24 @@ class Game: UIViewController {
                     if (userSteps[second] == 0) {
                         number = second + 1
                         run = true
-                        indexValues.addObject(o)
-                        numbers.addObject(number)
+                        indexValues.add(o)
+                        numbers.add(number)
                         count += 1
                     }
                 } else if (userSteps[zero] != 0 && userSteps[zero] == userSteps[second]) {
                     if (userSteps[first] == 0) {
                         number = first + 1
                         run = true
-                        indexValues.addObject(o)
-                        numbers.addObject(number)
+                        indexValues.add(o)
+                        numbers.add(number)
                         count += 1
                     }
                 } else if (userSteps[first] != 0 && userSteps[first] == userSteps[second]) {
                     if (userSteps[zero] == 0) {
                         number = zero + 1
                         run = true
-                        indexValues.addObject(o)
-                        numbers.addObject(number)
+                        indexValues.add(o)
+                        numbers.add(number)
                         count += 1
                     }
                 }
@@ -231,11 +231,11 @@ class Game: UIViewController {
             if run == true {
                 let button = gameView.viewWithTag(number) as! UIButton
                 if (now == 1) {
-                    button.setBackgroundImage(circleImage, forState: UIControlState.Normal)
+                    button.setBackgroundImage(circleImage, for: UIControlState())
                     userSteps[number-1] = 1;
                     now = 2
                 } else {
-                    button.setBackgroundImage(crossImage, forState: UIControlState.Normal)
+                    button.setBackgroundImage(crossImage, for: UIControlState())
                     userSteps[number-1] = 2;
                     now = 1
                 }
@@ -249,22 +249,22 @@ class Game: UIViewController {
     }
     func Disable() {
         var i : Int
-        for (i = 1 ; i < 10 ; i += 1) {
+        for i in 1..<10 {
             let button = gameView.viewWithTag(i) as! UIButton
-            button.userInteractionEnabled = false
+            button.isUserInteractionEnabled = false
         }
         let button = self.view.viewWithTag(11) as! UIButton
-        button.hidden = false;
+        button.isHidden = false;
     }
     func Enable() {
         var i : Int
-        for (i = 1 ; i < 10 ; i += 1) {
+        for i in 1..<10 {
             let button = gameView.viewWithTag(i) as! UIButton
-            button.userInteractionEnabled = true
-            button.setBackgroundImage(nil, forState: .Normal)
+            button.isUserInteractionEnabled = true
+            button.setBackgroundImage(nil, for: UIControlState())
         }
         let button = self.view.viewWithTag(11) as! UIButton
-        button.hidden = true;
+        button.isHidden = true;
     }
     func Reset()  {
         userSteps = [0,0,0,0,0,0,0,0,0]
@@ -279,7 +279,7 @@ class Game: UIViewController {
             }
         }
     }
-    @IBAction func ResetGame(sender: UIButton) {
+    @IBAction func ResetGame(_ sender: UIButton) {
         Enable()
         Reset()
     }

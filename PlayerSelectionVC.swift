@@ -21,17 +21,17 @@ class PlayerSelectionVC: UIViewController, UIActionSheetDelegate {
         //         Do any additional setup after loading the view.
     }
     
-    @IBAction func facebookLogin(sender: UIButton) {
+    @IBAction func facebookLogin(_ sender: UIButton) {
         
         BaseObject.sharedInstance.isComputerPlaying = true
         
-        let actionSheetController: UIAlertController = UIAlertController(title: "Use Profile Picture Instead of", message: "Note, this is a one player game", preferredStyle: .ActionSheet)
+        let actionSheetController: UIAlertController = UIAlertController(title: "Use Profile Picture Instead of", message: "Note, this is a one player game", preferredStyle: .actionSheet)
         
-        let cancelActionButton: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in
+        let cancelActionButton: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
         }
         actionSheetController.addAction(cancelActionButton)
         
-        let saveActionButton: UIAlertAction = UIAlertAction(title: "Cross", style: .Default)
+        let saveActionButton: UIAlertAction = UIAlertAction(title: "Cross", style: .default)
         { action -> Void in
             BaseObject.sharedInstance.customImage = true
             BaseObject.sharedInstance.isCircle = false
@@ -39,73 +39,73 @@ class PlayerSelectionVC: UIViewController, UIActionSheetDelegate {
         }
         actionSheetController.addAction(saveActionButton)
         
-        let deleteActionButton: UIAlertAction = UIAlertAction(title: "Circle", style: .Default)
+        let deleteActionButton: UIAlertAction = UIAlertAction(title: "Circle", style: .default)
         { action -> Void in
             BaseObject.sharedInstance.customImage = true
             BaseObject.sharedInstance.isCircle = true
             self.onePlayerActionSheet()
         }
         actionSheetController.addAction(deleteActionButton)
-        self.presentViewController(actionSheetController, animated: true, completion: nil)
+        self.present(actionSheetController, animated: true, completion: nil)
     }
     
     func facebook() -> Void {
         
-        if FBSDKAccessToken.currentAccessToken() != nil {
-            let req = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email,name"], tokenString: FBSDKAccessToken.currentAccessToken().tokenString, version: nil, HTTPMethod: "GET")
-            req.startWithCompletionHandler({ (connection, result, error : NSError!) -> Void in
-                if(error == nil)
-                {
-                    BaseObject.sharedInstance.userData = result as! NSMutableDictionary
-                    let finishedUrl = BaseObject.sharedInstance.url.stringByReplacingOccurrencesOfString("userID", withString: "\(BaseObject.sharedInstance.userData.valueForKey("id")!)")
-                    let data = NSData(contentsOfURL: NSURL(string: finishedUrl)!)
-                    BaseObject.sharedInstance.image = UIImage(data: data!)
-                    self.pushViewController()
-                }
-                else
-                {
-                    print("error \(error)")
-                }
-            })
+        if FBSDKAccessToken.current() != nil {
+            let req = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email,name"], tokenString: FBSDKAccessToken.current().tokenString, version: nil, httpMethod: "GET")
+//            req.start(completionHandler: { (connection, result, error : NSError!) -> Void in
+//                if(error == nil)
+//                {
+//                    BaseObject.sharedInstance.userData = result as! NSMutableDictionary
+//                    let finishedUrl = BaseObject.sharedInstance.url.replacingOccurrences(of: "userID", with: "\(BaseObject.sharedInstance.userData.value(forKey: "id")!)")
+//                    let data = try? Data(contentsOf: URL(string: finishedUrl)!)
+//                    BaseObject.sharedInstance.image = UIImage(data: data!)
+//                    self.pushViewController()
+//                }
+//                else
+//                {
+//                    print("error \(error)")
+//                }
+//            })
         } else {
             let loginManager = FBSDKLoginManager();
-            let isInstalled = UIApplication.sharedApplication().canOpenURL(NSURL(string: "fb://")!)
+            let isInstalled = UIApplication.shared.canOpenURL(URL(string: "fb://")!)
             if (isInstalled) {
-                loginManager.loginBehavior = FBSDKLoginBehavior.Native
+                loginManager.loginBehavior = FBSDKLoginBehavior.native
             } else {
-                loginManager.loginBehavior = FBSDKLoginBehavior.Browser
+                loginManager.loginBehavior = FBSDKLoginBehavior.browser
             }
             
             //        print(FBSDKAccessToken.currentAccessToken())
             //        loginManager.logOut()
-            FBSDKLoginManager().logInWithReadPermissions(["public_profile"],fromViewController:self ,handler: { (result:FBSDKLoginManagerLoginResult!, error:NSError!) -> Void in
-                if error != nil {
-                    print("error")
-                }else if(result.isCancelled){
-                    print("result cancelled")
-                }else{
-                    let fbRequest = FBSDKGraphRequest(graphPath:"me", parameters: nil);
-                    fbRequest.startWithCompletionHandler { (connection : FBSDKGraphRequestConnection!, result : AnyObject!, error : NSError!) -> Void in
-                        
-                        if error == nil {
-                            BaseObject.sharedInstance.userData = result as! NSMutableDictionary
-                            let finishedUrl = BaseObject.sharedInstance.url.stringByReplacingOccurrencesOfString("userID", withString: "\(BaseObject.sharedInstance.userData.valueForKey("id")!)")
-                            let data = NSData(contentsOfURL: NSURL(string: finishedUrl)!)
-                            BaseObject.sharedInstance.image = UIImage(data: data!)
-                            self.pushViewController()
-                        } else {
-                            
-                        }
-                    }
-                }
-            })
+//            FBSDKLoginManager().logIn(withReadPermissions: ["public_profile"],from:self ,handler: { (result:FBSDKLoginManagerLoginResult!, error:NSError!) -> Void in
+//                if error != nil {
+//                    print("error")
+//                }else if(result.isCancelled){
+//                    print("result cancelled")
+//                }else{
+//                    let fbRequest = FBSDKGraphRequest(graphPath:"me", parameters: nil);
+//                    fbRequest.start { (connection : FBSDKGraphRequestConnection!, result : AnyObject!, error : NSError!) -> Void in
+//                        
+//                        if error == nil {
+//                            BaseObject.sharedInstance.userData = result as! NSMutableDictionary
+//                            let finishedUrl = BaseObject.sharedInstance.url.replacingOccurrences(of: "userID", with: "\(BaseObject.sharedInstance.userData.value(forKey: "id")!)")
+//                            let data = try? Data(contentsOf: URL(string: finishedUrl)!)
+//                            BaseObject.sharedInstance.image = UIImage(data: data!)
+//                            self.pushViewController()
+//                        } else {
+//                            
+//                        }
+//                    }
+//                }
+//            })
         }
     }
     
-    @IBAction func setUserNameForGame(sender: UIButton) {
+    @IBAction func setUserNameForGame(_ sender: UIButton) {
         if userNameTxtField.text == "" {
-            let alert = UIAlertController.init(title: "Error", message: "Please enter your username", preferredStyle: .Alert)
-            let ok = UIAlertAction.init(title: "OK", style: .Cancel, handler: { (alert : UIAlertAction) in
+            let alert = UIAlertController.init(title: "Error", message: "Please enter your username", preferredStyle: .alert)
+            let ok = UIAlertAction.init(title: "OK", style: .cancel, handler: { (alert : UIAlertAction) in
                 
                 }
             )
@@ -134,59 +134,59 @@ class PlayerSelectionVC: UIViewController, UIActionSheetDelegate {
             //
             //            [self presentViewController:alert animated:YES completion:nil];
             //            let alert = UIAlertView.init(title: "ALert", message: "Enter Name", delegate: nil, cancelButtonTitle: "OK")
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
         } else {
             BaseObject.sharedInstance.userName = userNameTxtField.text
         }
         
     }
-    @IBAction func onePlayer(sender: UIButton) {
+    @IBAction func onePlayer(_ sender: UIButton) {
         BaseObject.sharedInstance.customImage = false
         BaseObject.sharedInstance.isComputerPlaying = true
-        let actionSheetController: UIAlertController = UIAlertController(title: "iPhone is", message: "", preferredStyle: .ActionSheet)
+        let actionSheetController: UIAlertController = UIAlertController(title: "iPhone is", message: "", preferredStyle: .actionSheet)
         
-        let cancelActionButton: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in
+        let cancelActionButton: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
         }
         actionSheetController.addAction(cancelActionButton)
         
-        let saveActionButton: UIAlertAction = UIAlertAction(title: "Dumb", style: .Default)
+        let saveActionButton: UIAlertAction = UIAlertAction(title: "Dumb", style: .default)
         { action -> Void in
             BaseObject.sharedInstance.isDumb = true
             self.pushViewController()
         }
         actionSheetController.addAction(saveActionButton)
         
-        let deleteActionButton: UIAlertAction = UIAlertAction(title: "Smart", style: .Default)
+        let deleteActionButton: UIAlertAction = UIAlertAction(title: "Smart", style: .default)
         { action -> Void in
             BaseObject.sharedInstance.isDumb = false
             self.pushViewController()
         }
         actionSheetController.addAction(deleteActionButton)
-        self.presentViewController(actionSheetController, animated: true, completion: nil)
+        self.present(actionSheetController, animated: true, completion: nil)
     }
     func onePlayerActionSheet() {
-        let actionSheetController: UIAlertController = UIAlertController(title: "iPhone is", message: "", preferredStyle: .ActionSheet)
+        let actionSheetController: UIAlertController = UIAlertController(title: "iPhone is", message: "", preferredStyle: .actionSheet)
         
-        let cancelActionButton: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in
+        let cancelActionButton: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
         }
         actionSheetController.addAction(cancelActionButton)
         
-        let saveActionButton: UIAlertAction = UIAlertAction(title: "Dumb", style: .Default)
+        let saveActionButton: UIAlertAction = UIAlertAction(title: "Dumb", style: .default)
         { action -> Void in
             BaseObject.sharedInstance.isDumb = true
             self.facebook()
         }
         actionSheetController.addAction(saveActionButton)
         
-        let deleteActionButton: UIAlertAction = UIAlertAction(title: "Smart", style: .Default)
+        let deleteActionButton: UIAlertAction = UIAlertAction(title: "Smart", style: .default)
         { action -> Void in
             BaseObject.sharedInstance.isDumb = false
             self.facebook()
         }
         actionSheetController.addAction(deleteActionButton)
-        self.presentViewController(actionSheetController, animated: true, completion: nil)
+        self.present(actionSheetController, animated: true, completion: nil)
     }
-    @IBAction func twoPlayer(sender: UIButton) {
+    @IBAction func twoPlayer(_ sender: UIButton) {
         BaseObject.sharedInstance.customImage = false
         BaseObject.sharedInstance.isComputerPlaying = false
         pushViewController()
@@ -196,7 +196,7 @@ class PlayerSelectionVC: UIViewController, UIActionSheetDelegate {
         // Dispose of any resources that can be recreated.
     }
     func pushViewController() -> Void {
-        let gameView = self.storyboard?.instantiateViewControllerWithIdentifier("gameView");
+        let gameView = self.storyboard?.instantiateViewController(withIdentifier: "gameView");
         self.navigationController?.pushViewController(gameView!, animated: true)
     }
     
