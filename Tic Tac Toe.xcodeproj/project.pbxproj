@@ -143,6 +143,7 @@
 				E2E022461D415B170068AB7A /* Resources */,
 				A3C385BBF9B60058050A3742 /* [CP] Embed Pods Frameworks */,
 				E8A2A8AEED62B9BE5067D7EA /* [CP] Copy Pods Resources */,
+				E28FBE001EA3E35C00BF2F3F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -235,6 +236,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tic Tac Toe/Pods-Tic Tac Toe-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		E28FBE001EA3E35C00BF2F3F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 1b31db25419e20fb9aecbcc88a6cf62bc301d7aa 5398062198f66a0209671423271b284adb999497abad6c26969bfb78462c3562";
 		};
 		E8A2A8AEED62B9BE5067D7EA /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -379,6 +393,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

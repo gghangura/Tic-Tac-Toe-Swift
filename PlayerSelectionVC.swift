@@ -10,6 +10,7 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 import FacebookLogin
+import Crashlytics
 
 class PlayerSelectionVC: UIViewController, UIActionSheetDelegate {
     @IBOutlet weak var userNameTxtField: UITextField!
@@ -23,7 +24,8 @@ class PlayerSelectionVC: UIViewController, UIActionSheetDelegate {
     }
     
     @IBAction func facebookLogin(_ sender: UIButton) {
-        
+        Answers.logCustomEvent(withName: "FB Login Pressed",
+                                       customAttributes: [:])
         BaseObject.sharedInstance.isComputerPlaying = true
         
         let actionSheetController: UIAlertController = UIAlertController(title: "Use Profile Picture Instead of", message: "Note, this is a one player game", preferredStyle: .actionSheet)
@@ -64,14 +66,16 @@ class PlayerSelectionVC: UIViewController, UIActionSheetDelegate {
                 if(FBSD.2 == nil)
                 {
                     BaseObject.sharedInstance.userData = FBSD.1 as! NSDictionary
+                    Answers.logCustomEvent(withName: "FB Login Success", customAttributes: ["username":BaseObject.sharedInstance.userData.object(forKey: "name")])
                     let finishedUrl = BaseObject.sharedInstance.url.replacingOccurrences(of: "userID", with: "\(BaseObject.sharedInstance.userData.value(forKey: "id")!)")
                     let data = try? Data(contentsOf: URL(string: finishedUrl)!)
                     BaseObject.sharedInstance.image = UIImage(data: data!)
+                    
                     self.pushViewController()
                 }
                 else
                 {
-                    print("error \(FBSD.2)")
+                    print("error \(String(describing: FBSD.2))")
                 }
             })
         } else {
@@ -100,6 +104,7 @@ class PlayerSelectionVC: UIViewController, UIActionSheetDelegate {
                         req in
                         if req.2 == nil {
                             BaseObject.sharedInstance.userData = req.1 as! NSDictionary
+                            Answers.logCustomEvent(withName: "FB Login Success", customAttributes: ["username":BaseObject.sharedInstance.userData.object(forKey: "name")])
                             let finishedUrl = BaseObject.sharedInstance.url.replacingOccurrences(of: "userID", with: "\(BaseObject.sharedInstance.userData.value(forKey: "id")!)")
                             let data = try? Data(contentsOf: URL(string: finishedUrl)!)
                             BaseObject.sharedInstance.image = UIImage(data: data!)

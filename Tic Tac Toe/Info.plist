@@ -27,6 +27,20 @@
             </array>
         </dict>
     </array>
+    <key>Fabric</key>
+    <dict>
+        <key>APIKey</key>
+        <string>1b31db25419e20fb9aecbcc88a6cf62bc301d7aa</string>
+        <key>Kits</key>
+        <array>
+            <dict>
+                <key>KitInfo</key>
+                <dict/>
+                <key>KitName</key>
+                <string>Crashlytics</string>
+            </dict>
+        </array>
+    </dict>
     <key>FacebookAppID</key>
     <string>1623614844317174</string>
     <key>FacebookDisplayName</key>

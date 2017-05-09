@@ -165,7 +165,6 @@ class Game: UIViewController {
             let numbers = NSMutableArray()
             var count = 0
             var number = 0
-            var o = 0
             for o in 0..<winnigArray.count {
                 let internalArray = winnigArray[o]
                 let zero = internalArray[0];
@@ -248,7 +247,6 @@ class Game: UIViewController {
         
     }
     func Disable() {
-        var i : Int
         for i in 1..<10 {
             let button = gameView.viewWithTag(i) as! UIButton
             button.isUserInteractionEnabled = false
@@ -257,7 +255,6 @@ class Game: UIViewController {
         button.isHidden = false;
     }
     func Enable() {
-        var i : Int
         for i in 1..<10 {
             let button = gameView.viewWithTag(i) as! UIButton
             button.isUserInteractionEnabled = true

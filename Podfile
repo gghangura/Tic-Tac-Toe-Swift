@@ -11,4 +11,8 @@ pod 'FacebookCore'
 pod 'FacebookLogin'
 pod 'FacebookShare'
 
+use_frameworks!
+pod 'Fabric'
+pod 'Crashlytics'
+
 end
